@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colloquium Series | c-QUEST</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Colloquium-specific styles */
+        body {
+            background-color: var(--dark-section-bg);
+        }
+        .event-card {
+            background-color: rgba(30, 41, 59, 0.5);
+            border: 1px solid var(--border-color-dark);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+        .event-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 0 25px rgba(239, 68, 68, 0.2);
+            border-color: var(--accent-color);
+        }
+        .event-card-image {
+            transition: transform 0.3s ease;
+        }
+        .event-card:hover .event-card-image {
+            transform: scale(1.05);
+        }
+        #colloquium-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(15, 23, 42, 0.8); backdrop-filter: blur(8px);
+            display: flex; align-items: center; justify-content: center; z-index: 100; 
+            opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        #colloquium-modal.active { opacity: 1; visibility: visible; }
+        .modal-content {
+            background: #111; border: 1px solid var(--border-color-dark);
+            max-width: 90%; width: 600px; max-height: 90vh; 
+            overflow: hidden; display: flex; flex-direction: column;
+            transform: scale(0.95); transition: transform 0.3s ease;
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.5);
+            border-radius: 0.125rem;
+        }
+        #colloquium-modal.active .modal-content { transform: scale(1); }
+        #close-modal-btn {
+            position: absolute; top: 1rem; right: 1rem; background: rgba(17, 17, 17, 0.7);
+            width: 2.5rem; height: 2.5rem; display: flex;
+            align-items: center; justify-content: center; cursor: pointer;
+            transition: background-color 0.2s; z-index: 10; border: 1px solid var(--border-color-dark);
+            border-radius: 0.125rem;
+        }
+        #close-modal-btn:hover { background-color: rgba(30, 41, 59, 0.9); }
+        #modal-image-container { height: 250px; flex-shrink: 0; background-color: #334155; }
+        #modal-image { width: 100%; height: 100%; object-fit: cover; }
+        #modal-text-content { padding: 1.5rem 2rem 2rem 2rem; overflow-y: auto; }
+        .colloquium-hero {
+            height: 40vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+        .colloquium-hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(50%) brightness(0.5);
+            transform: scale(1.1);
+        }
+        .hero-strip {
+            position: relative;
+            z-index: 2;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
+            padding: 2rem 0;
+            border-top: 1px solid var(--border-color-dark);
+            border-bottom: 1px solid var(--border-color-dark);
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="antialiased dark-theme">
+
+    <header id="header" class="bg-black/30 backdrop-blur-lg sticky top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-white">
+                c<span class="gradient-text">-QUEST</span>
+            </a>
+            <nav class="hidden md:flex space-x-8">
+                <a href="index.html#home" class="text-slate-300 hover:text-white nav-link relative">Home</a>
+                <a href="colloquium.html" class="text-red-400 font-bold nav-link relative">Activities</a>
+                <a href="index.html#faculty" class="text-slate-300 hover:text-white nav-link relative">Faculty</a>
+                <a href="index.html#contact" class="text-slate-300 hover:text-white nav-link relative">Contact</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-slate-300 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 bg-black/80">
+            <a href="index.html#home" class="block py-2 text-slate-300 hover:text-white">Home</a>
+            <a href="colloquium.html" class="block py-2 text-red-400 font-bold">Activities</a>
+            <a href="index.html#faculty" class="block py-2 text-slate-300 hover:text-white">Faculty</a>
+            <a href="index.html#contact" class="block py-2 text-slate-300 hover:text-white">Contact</a>
+        </div>
+    </header>
+
+    <main class="relative z-10">
+        <section class="colloquium-hero">
+            <img src="externals/bg2.jpg" alt="Abstract background" class="colloquium-hero-bg">
+            <div class="hero-strip">
+                <div class="container mx-auto px-6">
+                    <h1 class="text-4xl md:text-5xl font-extrabold text-white">Monthly <span class="gradient-text">Colloquium Series</span></h1>
+                </div>
+            </div>
+        </section>
+
+        <div class="container mx-auto px-6 py-16 md:py-24">
+            <p class="text-center text-lg text-slate-400 max-w-2xl mx-auto mb-16">An archive of our past and upcoming events.</p>
+            
+            <div id="featured-event-container" class="max-w-5xl mx-auto mb-20"></div>
+
+            <div id="upcoming-events-container" class="max-w-5xl mx-auto mb-16">
+                <h2 class="text-3xl font-bold text-white mb-8 border-b-2 border-slate-700 pb-3">Upcoming Events</h2>
+                <div id="upcoming-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
+            </div>
+            <div id="past-events-container" class="max-w-5xl mx-auto">
+                <h2 class="text-3xl font-bold text-white mb-8 border-b-2 border-slate-700 pb-3">Past Events</h2>
+                <div id="past-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
+            </div>
+        </div>
+    </main>
+
+    <div id="colloquium-modal">
+        <div class="modal-content">
+            <button id="close-modal-btn" aria-label="Close modal"><svg class="w-6 h-6 text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+            <div id="modal-image-container">
+                <img id="modal-image" src="" alt="Event Image">
+            </div>
+            <div id="modal-text-content">
+                <div id="modal-date" class="uppercase tracking-wide text-sm text-red-400 font-semibold mb-2"></div>
+                <h2 id="modal-title" class="text-3xl font-bold text-white mt-1 mb-4"></h2>
+                <p id="modal-speaker" class="text-slate-300 mb-4 text-lg"></p>
+                <div id="modal-description" class="text-slate-400 leading-relaxed space-y-4"></div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="bg-black text-white mt-24 border-t border-slate-800">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p>&copy; 2025 c-QUEST, BITS Pilani, Hyderabad Campus. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const GOOGLE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ9FBzbPR4wT-i61YyZ08mfy7nb1Lo695VfqzgKhWcP5uXxuNX4uzTvMdfxaGsi_DKL5ZogZ04oGdp2/pub?gid=0&single=true&output=csv';
+
+            const colloquiumModal = document.getElementById('colloquium-modal');
+            const closeModalBtn = document.getElementById('close-modal-btn');
+            let allEvents = [];
+
+            async function fetchEvents() {
+                try {
+                    const response = await fetch(GOOGLE_SHEET_URL);
+                    const csvText = await response.text();
+                    const rows = csvText.split(/\r?\n/).filter(row => row.trim() !== '');
+                    const headers = rows[0].split(',').map(h => h.trim().toLowerCase());
+                    const data = rows.slice(1).map(rowStr => {
+                        const row = rowStr.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g) || [];
+                        let obj = {};
+                        headers.forEach((header, i) => {
+                            let value = (row[i] || '').trim();
+                            if (value.startsWith('"') && value.endsWith('"')) value = value.slice(1, -1);
+                            obj[header] = value;
+                        });
+                        return obj;
+                    });
+                    return data.filter(item => item.id).map(item => ({...item, id: parseInt(item.id, 10)}));
+                } catch (error) {
+                    console.error("Failed to fetch event data:", error);
+                    return [];
+                }
+            }
+
+            function parseDateTime(dateStr, timeStr) {
+                if (!timeStr || !timeStr.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i)) return new Date(dateStr + 'T00:00:00');
+                const timeParts = timeStr.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
+                let hours = parseInt(timeParts[1], 10);
+                const minutes = parseInt(timeParts[2], 10);
+                const period = timeParts[3].toUpperCase();
+                if (period === 'PM' && hours < 12) hours += 12;
+                if (period === 'AM' && hours === 12) hours = 0;
+                return new Date(`${dateStr}T${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:00`);
+            }
+
+            function formatEventDateTime(dateStr, timeStr) {
+                const date = new Date(dateStr);
+                const dateOptions = { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' };
+                let formattedString = date.toLocaleDateString('en-US', dateOptions);
+                if (timeStr) formattedString += ` at ${timeStr} IST`;
+                return formattedString;
+            }
+
+            const openModal = (eventId) => {
+                const event = allEvents.find(e => e.id === eventId);
+                if (!event) return;
+                
+                document.getElementById('modal-image').src = event.image || 'https://placehold.co/600x400/ef4444/ffffff?text=c-QUEST';
+                document.getElementById('modal-date').textContent = formatEventDateTime(event.date, event.time);
+                document.getElementById('modal-title').textContent = event.title;
+                document.getElementById('modal-speaker').innerHTML = `<strong>Speaker:</strong> ${event.speaker}`;
+                document.getElementById('modal-description').innerHTML = event.description;
+                
+                colloquiumModal.classList.add('active');
+                document.body.classList.add('modal-open');
+            };
+
+            const closeModal = () => {
+                colloquiumModal.classList.remove('active');
+                document.body.classList.remove('modal-open');
+            };
+            closeModalBtn.addEventListener('click', closeModal);
+            colloquiumModal.addEventListener('click', (e) => { if (e.target === colloquiumModal) closeModal(); });
+
+            const createFeaturedCard = (event) => {
+                const card = document.createElement('div');
+                card.className = 'event-card overflow-hidden cursor-pointer w-full';
+                const imageUrl = event.image || 'https://placehold.co/1200x600/ef4444/ffffff?text=c-QUEST';
+                card.innerHTML = `
+                    <div class="md:flex bg-slate-800/30">
+                        <div class="md:w-1/2 md:flex-shrink-0">
+                            <img class="h-64 w-full object-cover event-card-image" src="${imageUrl}" alt="Event image for ${event.title}">
+                        </div>
+                        <div class="p-8 md:p-12 flex flex-col justify-center md:w-1/2">
+                            <div class="uppercase tracking-wide text-sm text-red-400 font-semibold">Featured Upcoming Event</div>
+                            <h3 class="block mt-2 text-3xl leading-tight font-extrabold text-white">${event.title}</h3>
+                            <p class="mt-4 text-slate-300 text-lg"><strong>Speaker:</strong> ${event.speaker}</p>
+                            <p class="mt-2 text-slate-400">${formatEventDateTime(event.date, event.time)}</p>
+                        </div>
+                    </div>`;
+                card.addEventListener('click', () => openModal(event.id));
+                return card;
+            };
+
+            const createEventCard = (event) => {
+                const card = document.createElement('div');
+                card.className = 'event-card overflow-hidden cursor-pointer h-full flex flex-col';
+                const imageUrl = event.image || 'https://placehold.co/600x400/ef4444/ffffff?text=c-QUEST';
+                card.innerHTML = `
+                    <div class="flex-shrink-0 h-48 overflow-hidden">
+                        <img class="w-full h-full object-cover event-card-image" src="${imageUrl}" alt="Event image for ${event.title}">
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <div class="uppercase tracking-wide text-xs text-red-400 font-semibold">${formatEventDateTime(event.date, event.time)}</div>
+                        <h3 class="block mt-2 text-xl leading-tight font-bold text-white">${event.title}</h3>
+                        <p class="mt-2 text-slate-400 text-base flex-grow"><strong>Speaker:</strong> ${event.speaker}</p>
+                    </div>`;
+                card.addEventListener('click', () => openModal(event.id));
+                return card;
+            };
+
+            const populateEvents = (events) => {
+                const featuredContainer = document.getElementById('featured-event-container');
+                const upcomingGrid = document.getElementById('upcoming-grid');
+                const pastGrid = document.getElementById('past-grid');
+                
+                upcomingGrid.innerHTML = '';
+                pastGrid.innerHTML = '';
+                featuredContainer.innerHTML = '';
+
+                const now = new Date();
+                events.sort((a, b) => parseDateTime(a.date, a.time) - parseDateTime(b.date, b.time));
+                
+                const pastEvents = events.filter(e => parseDateTime(e.date, e.time) < now).sort((a,b) => parseDateTime(b.date, b.time) - parseDateTime(a.date, a.time));
+                const upcomingEvents = events.filter(e => parseDateTime(e.date, e.time) >= now);
+
+                if (upcomingEvents.length > 0) {
+                    featuredContainer.appendChild(createFeaturedCard(upcomingEvents[0]));
+                    upcomingEvents.slice(1).forEach(event => upcomingGrid.appendChild(createEventCard(event)));
+                } else {
+                     document.getElementById('upcoming-events-container').innerHTML += '<p class="text-slate-400">No new events scheduled at this time. Please check back later!</p>';
+                }
+
+                if (pastEvents.length > 0) {
+                    pastEvents.forEach(event => pastGrid.appendChild(createEventCard(event)));
+                } else {
+                    document.getElementById('past-events-container').innerHTML += '<p class="text-slate-400">No past events to show.</p>';
+                }
+            };
+
+            async function initialize() {
+                allEvents = await fetchEvents();
+                populateEvents(allEvents);
+
+                const eventToOpen = localStorage.getItem('cquest-nextevent');
+                if (eventToOpen) {
+                    openModal(parseInt(eventToOpen, 10));
+                    localStorage.removeItem('cquest-nextevent');
+                }
+
+                const mobileMenuButton = document.getElementById('mobile-menu-button');
+                const mobileMenu = document.getElementById('mobile-menu');
+                mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+                document.querySelectorAll('#mobile-menu a').forEach(link => link.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+            }
+            
+            initialize();
+        });
+    </script>
+</body>
+</html>

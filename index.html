@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>c-QUEST | BITS Pilani, Hyderabad Campus</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="antialiased dark-theme">
+
+    <header id="header" class="bg-black/30 backdrop-blur-lg fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-white">
+                c<span class="gradient-text">-QUEST</span>
+            </a>
+            <nav class="hidden md:flex space-x-8">
+                <a href="index.html#home" class="text-slate-300 hover:text-white nav-link">Home</a>
+                <a href="colloquium.html" class="text-slate-300 hover:text-white nav-link">Activities</a>
+                <a href="index.html#faculty" class="text-slate-300 hover:text-white nav-link">Faculty</a>
+                <a href="index.html#contact" class="text-slate-300 hover:text-white nav-link">Contact</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-slate-300 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 bg-black/80 backdrop-blur-lg">
+            <a href="index.html#home" class="block py-2 text-slate-300 hover:text-white">Home</a>
+            <a href="colloquium.html" class="block py-2 text-slate-300 hover:text-white">Activities</a>
+            <a href="index.html#faculty" class="block py-2 text-slate-300 hover:text-white">Faculty</a>
+            <a href="index.html#contact" class="block py-2 text-slate-300 hover:text-white">Contact</a>
+        </div>
+    </header>
+
+    <div id="main-content">
+        <section id="home" class="h-screen hero-container flex items-center">
+            <div class="hero-image-container">
+                <img src="externals/bg.jpg" alt="Abstract quantum background" class="hero-image">
+            </div>
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="max-w-md">
+                    <div class="fade-in">
+                        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tighter text-white leading-tight mb-4">c<span class="gradient-text">-QUEST</span></h1>
+                        <p class="text-lg text-slate-300">Consortium for Quantum Education, Science and Technology</p>
+                        <p class="mt-4 text-lg text-red-400 font-semibold">BITS Pilani, Hyderabad Campus</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <main>
+            <section id="activities" class="bg-black w-full py-24">
+                 <div class="container mx-auto px-6">
+                    <div class="text-left">
+                        <h2 class="section-title text-4xl text-white mb-4">Planned Activities</h2>
+                        <h3 class="text-2xl font-semibold text-red-400 mb-4">Monthly Colloquium Series</h3>
+                        <p class="text-slate-400 text-lg leading-relaxed mb-10 max-w-2xl">Join us for our engaging monthly colloquium series, where we host leading experts to discuss the latest breakthroughs in quantum science.</p>
+                        <a href="colloquium.html" class="bg-red-600 text-white font-bold py-4 px-10 text-lg hover:bg-red-700 transition duration-300 shadow-lg shadow-red-500/20 hover:shadow-xl hover:shadow-red-500/30 rounded-md">View Schedule</a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="faculty" class="fade-in bg-black py-24">
+                <div class="container mx-auto px-6">
+                    <h2 class="section-title text-4xl text-center mb-12 text-white">Faculty</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <a href="https://www.bits-pilani.ac.in/hyderabad/ravikiran-y/" target="_blank" rel="noopener noreferrer" class="block faculty-card flex flex-col">
+                            <div class="faculty-img-wrapper"><img src="externals/rk.webp" alt="RaviKiran Yeleswarapu" class="faculty-img" onerror="this.onerror=null;this.src='https://placehold.co/256x256/111111/444444?text=RY';"></div>
+                            <div class="p-6 faculty-info bg-white flex-grow flex items-center justify-center"><h3 class="text-xl font-semibold text-slate-800">RaviKiran Yeleswarapu</h3></div>
+                        </a>
+                        <a href="https://www.bits-pilani.ac.in/hyderabad/dr-nitish-kumar-gupta/" target="_blank" rel="noopener noreferrer" class="block faculty-card flex flex-col">
+                             <div class="faculty-img-wrapper"><img src="externals/nkg.JPG" alt="Nitish Kumar Gupta" class="faculty-img" onerror="this.onerror=null;this.src='https://placehold.co/256x256/111111/444444?text=NG';"></div>
+                            <div class="p-6 faculty-info bg-white flex-grow flex items-center justify-center"><h3 class="text-xl font-semibold text-slate-800">Nitish Kumar Gupta</h3></div>
+                        </a>
+                        <a href="https://www.bits-pilani.ac.in/hyderabad/suvadip-das/" target="_blank" rel="noopener noreferrer" class="block faculty-card flex flex-col">
+                             <div class="faculty-img-wrapper"><img src="externals/sd.webp" alt="Suvadip Das" class="faculty-img" onerror="this.onerror=null;this.src='https://placehold.co/256x256/111111/444444?text=SD';"></div>
+                            <div class="p-6 faculty-info bg-white flex-grow flex items-center justify-center"><h3 class="text-xl font-semibold text-slate-800">Suvadip Das</h3></div>
+                        </a>
+                        <a href="https://www.bits-pilani.ac.in/hyderabad/sanket-goel/" target="_blank" rel="noopener noreferrer" class="block faculty-card flex flex-col">
+                             <div class="faculty-img-wrapper"><img src="externals/sg.webp" alt="Sanket Goel" class="faculty-img" onerror="this.onerror=null;this.src='https://placehold.co/256x256/111111/444444?text=SG';"></div>
+                            <div class="p-6 faculty-info bg-white flex-grow flex items-center justify-center"><h3 class="text-xl font-semibold text-slate-800">Sanket Goel</h3></div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact" class="fade-in bg-slate-100 py-24">
+                <div class="container mx-auto px-6">
+                    <h2 class="section-title text-4xl text-center mb-12 text-black">Contact Us</h2>
+                    <div class="flex flex-wrap -mx-4">
+                        <div class="w-full lg:w-1/2 px-4 mb-8 lg:mb-0"><div class="bg-white p-8 h-full border border-slate-200"><h3 class="text-2xl font-bold mb-4 text-slate-800">Get in Touch</h3><p class="text-slate-600 mb-6">We'd love to hear from you. Reach out with any questions or for collaboration inquiries.</p><div class="space-y-4"><p class="flex items-start"><svg class="w-6 h-6 text-red-500 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg><span><strong>c-QUEST</strong><br>BITS Pilani, Hyderabad Campus<br>Jawahar Nagar, Kapra<br>Hyderabad 500078</span></p><p class="flex items-center"><svg class="w-6 h-6 text-red-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg><a href="mailto:ravikiran.y@hyderabad.bits-pilani.ac.in" class="text-red-600 hover:underline">ravikiran.y@hyderabad.bits-pilani.ac.in</a></p></div></div></div>
+                        <div class="w-full lg:w-1/2 px-4"><div class="bg-white overflow-hidden h-full border border-slate-200"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30434.43147917816!2d78.57438719999999!3d17.5407104!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb83594a86132d%3A0xc3e06e9e76cebf3d!2sBirla%20Institute%20of%20Technology%20%26%20Science%20Pilani%2C%20Hyderabad%20Campus!5e0!3m2!1sen!2sin!4v1755791536447!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="h-full w-full"></iframe></div></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <div id="event-fab-container" class="hidden">
+        <div id="event-fab-blob">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+        </div>
+        <div class="fab-content">
+            <span id="fab-event-text" class="event-text font-semibold truncate text-slate-800"></span>
+            <a id="fab-learn-more" href="colloquium.html" class="learn-more-link">Learn More</a>
+        </div>
+        <div id="close-fab-btn">
+            <svg class="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </div>
+    </div>
+
+    <footer class="bg-black text-white border-t border-slate-800">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p>&copy; 2025 c-QUEST, BITS Pilani, Hyderabad Campus. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const GOOGLE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ9FBzbPR4wT-i61YyZ08mfy7nb1Lo695VfqzgKhWcP5uXxuNX4uzTvMdfxaGsi_DKL5ZogZ04oGdp2/pub?gid=0&single=true&output=csv';
+
+            const fabContainer = document.getElementById('event-fab-container');
+            const fabBlob = document.getElementById('event-fab-blob');
+            const closeFabBtn = document.getElementById('close-fab-btn');
+            const fabLearnMore = document.getElementById('fab-learn-more');
+
+            async function fetchEvents() {
+                try {
+                    const response = await fetch(GOOGLE_SHEET_URL);
+                    const csvText = await response.text();
+                    const rows = csvText.split(/\r?\n/).filter(row => row.trim() !== '');
+                    const headers = rows[0].split(',').map(h => h.trim().toLowerCase());
+                    const data = rows.slice(1).map(rowStr => {
+                        const row = rowStr.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g) || [];
+                        let obj = {};
+                        headers.forEach((header, i) => {
+                            let value = (row[i] || '').trim();
+                            if (value.startsWith('"') && value.endsWith('"')) value = value.slice(1, -1);
+                            obj[header] = value;
+                        });
+                        return obj;
+                    });
+                    return data.filter(item => item.id).map(item => ({...item, id: parseInt(item.id, 10)}));
+                } catch (error) {
+                    console.error("Failed to fetch event data:", error);
+                    return [];
+                }
+            }
+
+            function parseDateTime(dateStr, timeStr) {
+                if (!timeStr || !timeStr.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i)) return new Date(dateStr + 'T00:00:00');
+                const timeParts = timeStr.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
+                let hours = parseInt(timeParts[1], 10);
+                const minutes = parseInt(timeParts[2], 10);
+                const period = timeParts[3].toUpperCase();
+                if (period === 'PM' && hours < 12) hours += 12;
+                if (period === 'AM' && hours === 12) hours = 0;
+                return new Date(`${dateStr}T${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:00`);
+            }
+
+            const setupFab = (events) => {
+                const now = new Date();
+                const upcomingEvents = events
+                    .filter(e => e.status === 'upcoming' && parseDateTime(e.date, e.time) >= now)
+                    .sort((a, b) => parseDateTime(a.date, a.time) - parseDateTime(b.date, b.time));
+                
+                if (upcomingEvents.length > 0) {
+                    const nextEvent = upcomingEvents[0];
+                    document.getElementById('fab-event-text').textContent = nextEvent.title;
+                    fabLearnMore.onclick = (e) => {
+                        e.preventDefault();
+                        localStorage.setItem('cquest-nextevent', nextEvent.id);
+                        window.location.href = 'colloquium.html';
+                    };
+                    fabContainer.classList.remove('hidden');
+                } else {
+                    fabContainer.classList.add('hidden');
+                }
+            };
+
+            fabBlob.addEventListener('click', () => fabContainer.classList.add('expanded'));
+            closeFabBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                fabContainer.classList.remove('expanded');
+            });
+
+            async function initialize() {
+                const allEvents = await fetchEvents();
+                setupFab(allEvents);
+
+                const header = document.getElementById('header');
+                window.addEventListener('scroll', () => header.classList.toggle('shadow-lg', window.scrollY > 50));
+                const mobileMenuButton = document.getElementById('mobile-menu-button');
+                const mobileMenu = document.getElementById('mobile-menu');
+                mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+                document.querySelectorAll('#mobile-menu a').forEach(link => link.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+                const faders = document.querySelectorAll('.fade-in');
+                const appearOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+                const appearOnScroll = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (!entry.isIntersecting) return;
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    });
+                }, appearOptions);
+                faders.forEach(fader => appearOnScroll.observe(fader));
+                setTimeout(() => document.querySelector('#home .fade-in').classList.add('visible'), 300);
+            }
+            
+            initialize();
+        });
+    </script>
+</body>
+</html>
