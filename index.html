@@ -118,15 +118,21 @@
     </div>
     
     <div id="event-fab-container" class="hidden">
-        <div id="event-fab-blob">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+        <div id="event-fab-blob" class="overflow-hidden">
+            <!-- Default calendar icon, replaced by image if available -->
+            <img id="fab-event-img" class="w-full h-full object-cover hidden" src="" alt="Event">
+            <svg id="fab-default-icon" class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
         </div>
         <div class="fab-content">
             <span id="fab-event-text" class="event-text font-semibold truncate text-slate-800"></span>
             <a id="fab-learn-more" href="colloquium.html" class="learn-more-link">Learn More</a>
         </div>
         <div id="close-fab-btn">
-            <svg class="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            <svg class="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
         </div>
     </div>
 
@@ -145,6 +151,14 @@
             const closeFabBtn = document.getElementById('close-fab-btn');
             const fabLearnMore = document.getElementById('fab-learn-more');
 
+            function convertImageUrl(url) {
+                if (!url) return '';
+                let match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+                if (match && match[1]) return `https://lh3.googleusercontent.com/d/${match[1]}`;
+                match = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+                if (match && match[1]) return `https://lh3.googleusercontent.com/d/${match[1]}`;
+                return url;
+            }
             async function fetchEvents() {
                 try {
                     const response = await fetch(GOOGLE_SHEET_URL);
@@ -159,6 +173,9 @@
                             if (value.startsWith('"') && value.endsWith('"')) value = value.slice(1, -1);
                             obj[header] = value;
                         });
+                        if (obj.image) {
+                            obj.image = convertImageUrl(obj.image);
+                        }
                         return obj;
                     });
                     return data.filter(item => item.id).map(item => ({...item, id: parseInt(item.id, 10)}));
@@ -188,6 +205,13 @@
                 if (upcomingEvents.length > 0) {
                     const nextEvent = upcomingEvents[0];
                     document.getElementById('fab-event-text').textContent = nextEvent.title;
+                    const fabImg = document.getElementById('fab-event-img');
+                    const fabIcon = document.getElementById('fab-default-icon');
+                    if (fabImg && nextEvent.image) {
+                        fabImg.src = nextEvent.image;
+                        fabImg.classList.remove('hidden');
+                        if (fabIcon) fabIcon.classList.add('hidden');
+                    }
                     fabLearnMore.onclick = (e) => {
                         e.preventDefault();
                         localStorage.setItem('cquest-nextevent', nextEvent.id);
