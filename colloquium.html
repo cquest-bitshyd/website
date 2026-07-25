@@ -190,26 +190,60 @@
                 return url;
             }
 
+            function parseCsvRow(rowStr) {
+                const values = [];
+                let current = '';
+                let inQuotes = false;
+
+                for (let i = 0; i < rowStr.length; i++) {
+                    const char = rowStr[i];
+                    const nextChar = rowStr[i + 1];
+
+                    if (char === '"') {
+                        if (inQuotes && nextChar === '"') {
+                            current += '"';
+                            i++;
+                        } else {
+                            inQuotes = !inQuotes;
+                        }
+                    } else if (char === ',' && !inQuotes) {
+                        values.push(current.trim());
+                        current = '';
+                    } else {
+                        current += char;
+                    }
+                }
+
+                values.push(current.trim());
+                return values;
+            }
+
+            function normalizeEventRow(obj) {
+                const normalized = { ...obj };
+                if (!normalized.image && normalized.description && /drive\.google\.com/i.test(normalized.description)) {
+                    normalized.image = convertImageUrl(normalized.description);
+                    normalized.description = '';
+                }
+                if (normalized.image) {
+                    normalized.image = convertImageUrl(normalized.image);
+                }
+                return normalized;
+            }
+
             async function fetchEvents() {
                 try {
                     const response = await fetch(GOOGLE_SHEET_URL);
                     const csvText = await response.text();
                     const rows = csvText.split(/\r?\n/).filter(row => row.trim() !== '');
-                    const headers = rows[0].split(',').map(h => h.trim().toLowerCase());
+                    const headers = parseCsvRow(rows[0]).map(h => h.trim().toLowerCase());
                     const data = rows.slice(1).map(rowStr => {
-                        const row = rowStr.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g) || [];
+                        const row = parseCsvRow(rowStr);
                         let obj = {};
                         headers.forEach((header, i) => {
                             let value = (row[i] || '').trim();
-                            if (value.startsWith('"') && value.endsWith('"')) value = value.slice(1, -1);
                             obj[header] = value;
                         });
-                        // Auto-convert image link format
-                        if (obj.image) {
-                            obj.image = convertImageUrl(obj.image);
-                        }
-
-                        return obj;
+                        return normalizeEventRow(obj);
                     });
                     return data.filter(item => item.id).map(item => ({...item, id: parseInt(item.id, 10)}));
                 } catch (error) {
