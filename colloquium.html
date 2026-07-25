@@ -169,16 +169,25 @@
             // Helper to convert Google Drive share links into direct image URLs
             function convertImageUrl(url) {
                 if (!url) return '';
-                // Matches /d/FILE_ID/ pattern
-                let match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
-                if (match && match[1]) {
-                    return `https://lh3.googleusercontent.com/d/${match[1]}`;}
-                // Matches ?id=FILE_ID pattern
-                match = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
-                if (match && match[1]) {
-                    return `https://lh3.googleusercontent.com/d/${match[1]}`;}
-                return url; // Returns original URL if it's already a direct link
-                }            
+                // Common Google Drive URL patterns. Extract the file ID and return
+                // a direct-view URL that works reliably in <img> tags.
+                const patterns = [
+                    /\/d\/([a-zA-Z0-9_-]+)/,     // /d/FILE_ID
+                    /id=([a-zA-Z0-9_-]+)/,         // ?id=FILE_ID or &id=FILE_ID
+                    /\/file\/u\/\d+\/d\/([a-zA-Z0-9_-]+)/, // /file/u/0/d/FILE_ID
+                    /\/open\?id=([a-zA-Z0-9_-]+)/ // /open?id=FILE_ID
+                ];
+                for (const re of patterns) {
+                    const m = url.match(re);
+                    if (m && m[1]) {
+                        return `https://drive.google.com/uc?export=view&id=${m[1]}`;
+                    }
+                }
+                // If the URL already looks like a direct 'uc' link, return it.
+                if (url.includes('drive.google.com') && url.includes('uc?')) return url;
+                // Otherwise return the original URL unchanged.
+                return url;
+            }
 
             async function fetchEvents() {
                 try {
