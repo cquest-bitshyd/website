@@ -162,6 +162,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const GOOGLE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ9FBzbPR4wT-i61YyZ08mfy7nb1Lo695VfqzgKhWcP5uXxuNX4uzTvMdfxaGsi_DKL5ZogZ04oGdp2/pub?gid=0&single=true&output=csv';
+            const FALLBACK_IMAGE = 'externals/event-placeholder.svg';
 
             const colloquiumModal = document.getElementById('colloquium-modal');
             const closeModalBtn = document.getElementById('close-modal-btn');
@@ -230,6 +231,22 @@
                 return normalized;
             }
 
+            function setImageWithFallback(imgEl, desiredSrc, altText) {
+                if (!imgEl) return;
+                imgEl.alt = altText || imgEl.alt || 'Event image';
+                imgEl.src = FALLBACK_IMAGE;
+                if (!desiredSrc) return;
+
+                const probe = new Image();
+                probe.onload = () => {
+                    imgEl.src = desiredSrc;
+                };
+                probe.onerror = () => {
+                    imgEl.src = FALLBACK_IMAGE;
+                };
+                probe.src = desiredSrc;
+            }
+
             async function fetchEvents() {
                 try {
                     const response = await fetch(GOOGLE_SHEET_URL);
@@ -274,8 +291,12 @@
             const openModal = (eventId) => {
                 const event = allEvents.find(e => e.id === eventId);
                 if (!event) return;
-                
-                document.getElementById('modal-image').src = event.image || 'https://placehold.co/600x400/ef4444/ffffff?text=c-QUEST';
+
+                setImageWithFallback(
+                    document.getElementById('modal-image'),
+                    event.image,
+                    `Event image for ${event.title}`
+                );
                 document.getElementById('modal-date').textContent = formatEventDateTime(event.date, event.time);
                 document.getElementById('modal-title').textContent = event.title;
                 document.getElementById('modal-speaker').innerHTML = `<strong>Speaker:</strong> ${event.speaker}`;
@@ -295,11 +316,10 @@
             const createFeaturedCard = (event) => {
                 const card = document.createElement('div');
                 card.className = 'event-card overflow-hidden cursor-pointer w-full';
-                const imageUrl = event.image || 'https://placehold.co/1200x600/ef4444/ffffff?text=c-QUEST';
                 card.innerHTML = `
                     <div class="md:flex bg-slate-800/30">
                         <div class="md:w-1/2 md:flex-shrink-0">
-                            <img class="h-64 w-full object-cover event-card-image" src="${imageUrl}" alt="Event image for ${event.title}">
+                            <img class="h-64 w-full object-cover event-card-image" src="${FALLBACK_IMAGE}" alt="Event image for ${event.title}">
                         </div>
                         <div class="p-8 md:p-12 flex flex-col justify-center md:w-1/2">
                             <div class="uppercase tracking-wide text-sm text-red-400 font-semibold">Featured Upcoming Event</div>
@@ -308,6 +328,7 @@
                             <p class="mt-2 text-slate-400">${formatEventDateTime(event.date, event.time)}</p>
                         </div>
                     </div>`;
+                setImageWithFallback(card.querySelector('img'), event.image, `Event image for ${event.title}`);
                 card.addEventListener('click', () => openModal(event.id));
                 return card;
             };
@@ -315,16 +336,16 @@
             const createEventCard = (event) => {
                 const card = document.createElement('div');
                 card.className = 'event-card overflow-hidden cursor-pointer h-full flex flex-col';
-                const imageUrl = event.image || 'https://placehold.co/600x400/ef4444/ffffff?text=c-QUEST';
                 card.innerHTML = `
                     <div class="flex-shrink-0 h-48 overflow-hidden">
-                        <img class="w-full h-full object-cover event-card-image" src="${imageUrl}" alt="Event image for ${event.title}">
+                        <img class="w-full h-full object-cover event-card-image" src="${FALLBACK_IMAGE}" alt="Event image for ${event.title}">
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <div class="uppercase tracking-wide text-xs text-red-400 font-semibold">${formatEventDateTime(event.date, event.time)}</div>
                         <h3 class="block mt-2 text-xl leading-tight font-bold text-white">${event.title}</h3>
                         <p class="mt-2 text-slate-400 text-base flex-grow"><strong>Speaker:</strong> ${event.speaker}</p>
                     </div>`;
+                setImageWithFallback(card.querySelector('img'), event.image, `Event image for ${event.title}`);
                 card.addEventListener('click', () => openModal(event.id));
                 return card;
             };
