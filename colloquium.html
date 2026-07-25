@@ -162,32 +162,39 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const GOOGLE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ9FBzbPR4wT-i61YyZ08mfy7nb1Lo695VfqzgKhWcP5uXxuNX4uzTvMdfxaGsi_DKL5ZogZ04oGdp2/pub?gid=0&single=true&output=csv';
-            const FALLBACK_IMAGE = 'externals/event-placeholder.svg';
+            const FALLBACK_IMAGE = 'https://placehold.co/1200x675/ef4444/ffffff?text=c-QUEST';
+            const IMAGE_PROXY_BASE = window.CQUEST_IMAGE_PROXY_BASE || '';
 
             const colloquiumModal = document.getElementById('colloquium-modal');
             const closeModalBtn = document.getElementById('close-modal-btn');
             let allEvents = [];
-            // Helper to convert Google Drive share links into direct image URLs
-            function convertImageUrl(url) {
+            function extractDriveFileId(url) {
                 if (!url) return '';
-                // Common Google Drive URL patterns. Extract the file ID and return
-                // a direct-view URL that works reliably in <img> tags.
                 const patterns = [
-                    /\/d\/([a-zA-Z0-9_-]+)/,     // /d/FILE_ID
-                    /id=([a-zA-Z0-9_-]+)/,         // ?id=FILE_ID or &id=FILE_ID
-                    /\/file\/u\/\d+\/d\/([a-zA-Z0-9_-]+)/, // /file/u/0/d/FILE_ID
-                    /\/file\/d\/([a-zA-Z0-9_-]+)/,         // /file/d/FILE_ID
-                    /\/open\?id=([a-zA-Z0-9_-]+)/ // /open?id=FILE_ID
+                    /\/d\/([a-zA-Z0-9_-]+)/,
+                    /id=([a-zA-Z0-9_-]+)/,
+                    /\/file\/u\/\d+\/d\/([a-zA-Z0-9_-]+)/,
+                    /\/file\/d\/([a-zA-Z0-9_-]+)/,
+                    /\/open\?id=([a-zA-Z0-9_-]+)/
                 ];
                 for (const re of patterns) {
                     const m = url.match(re);
-                    if (m && m[1]) {
-                        return `https://drive.google.com/uc?export=view&id=${m[1]}`;
-                    }
+                    if (m && m[1]) return m[1];
                 }
-                // If the URL already looks like a direct 'uc' link, return it.
+                return '';
+            }
+
+            function convertImageUrl(url) {
+                if (!url) return '';
+                if (IMAGE_PROXY_BASE) {
+                    const proxyBase = IMAGE_PROXY_BASE.replace(/\/$/, '');
+                    if (url.includes(proxyBase)) return url;
+                    const fileId = extractDriveFileId(url);
+                    if (fileId) return `${proxyBase}?id=${encodeURIComponent(fileId)}`;
+                }
+                const fileId = extractDriveFileId(url);
+                if (fileId) return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1200`;
                 if (url.includes('drive.google.com') && url.includes('uc?')) return url;
-                // Otherwise return the original URL unchanged.
                 return url;
             }
 
@@ -231,20 +238,35 @@
                 return normalized;
             }
 
-            function setImageWithFallback(imgEl, desiredSrc, altText) {
+            async function setImageWithFallback(imgEl, desiredSrc, altText) {
                 if (!imgEl) return;
                 imgEl.alt = altText || imgEl.alt || 'Event image';
-                imgEl.src = FALLBACK_IMAGE;
-                if (!desiredSrc) return;
 
-                const probe = new Image();
-                probe.onload = () => {
-                    imgEl.src = desiredSrc;
+                const fallbackToPlaceholder = () => {
+                    if (imgEl.src !== FALLBACK_IMAGE) {
+                        imgEl.onerror = null;
+                        imgEl.src = FALLBACK_IMAGE;
+                    }
                 };
-                probe.onerror = () => {
-                    imgEl.src = FALLBACK_IMAGE;
-                };
-                probe.src = desiredSrc;
+
+                if (IMAGE_PROXY_BASE && desiredSrc && desiredSrc.includes(IMAGE_PROXY_BASE.replace(/\/$/, ''))) {
+                    try {
+                        const response = await fetch(desiredSrc);
+                        if (!response.ok) throw new Error('Proxy image fetch failed');
+                        const responseText = await response.text();
+                        const [mimeType, base64Data] = responseText.split('|');
+                        if (mimeType && base64Data) {
+                            imgEl.onerror = fallbackToPlaceholder;
+                            imgEl.src = `data:${mimeType};base64,${base64Data}`;
+                            return;
+                        }
+                    } catch (error) {
+                        console.warn('Unable to load proxied image:', error);
+                    }
+                }
+
+                imgEl.onerror = fallbackToPlaceholder;
+                imgEl.src = desiredSrc || FALLBACK_IMAGE;
             }
 
             async function fetchEvents() {
