@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Quantum 101 | c-QUEST</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        body {
+            background-color: #0f172a;
+        }
+
+        .resource-card {
+            display: block;
+            background-color: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .resource-card:hover {
+            border-color: #ef4444;
+            transform: translateY(-4px);
+            background-color: rgba(30, 41, 59, 0.9);
+        }
+
+        .open-button {
+            display: inline-block;
+            background-color: #dc2626;
+            color: white;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+        }
+
+        .open-button:hover {
+            background-color: #b91c1c;
+        }
+
+    </style>
+
+</head>
+
+
+<body class="antialiased text-slate-200">
+
+
+    <!-- Navigation -->
+
+    <header
+        id="header"
+        class="bg-black/30 backdrop-blur-lg sticky top-0 left-0 right-0 z-50"
+    >
+
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+
+            <!-- Logo -->
+
+            <a
+                href="index.html"
+                class="text-2xl font-bold text-white"
+            >
+
+                c<span class="text-red-500"> -QUEST</span>
+
+            </a>
+
+
+            <!-- Navigation -->
+
+            <nav class="hidden md:flex space-x-8">
+
+                <a
+                    href="index.html#home"
+                    class="text-slate-300 hover:text-white"
+                >
+                    Home
+                </a>
+
+                <a
+                    href="colloquium.html"
+                    class="text-slate-300 hover:text-white"
+                >
+                    Activities
+                </a>
+
+                <a
+                    href="resources.html"
+                    class="text-red-400 font-bold"
+                >
+                    Resources
+                </a>
+
+                <a
+                    href="index.html#faculty"
+                    class="text-slate-300 hover:text-white"
+                >
+                    Faculty
+                </a>
+
+                <a
+                    href="index.html#contact"
+                    class="text-slate-300 hover:text-white"
+                >
+                    Contact
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- Main Content -->
+
+    <main class="container mx-auto px-6 py-12">
+
+
+        <!-- Page Heading -->
+
+        <div class="text-center mb-10">
+
+            <span
+                class="text-red-500 font-semibold tracking-wider uppercase text-sm"
+            >
+                Learning Series
+            </span>
+
+            <h1 class="text-4xl font-extrabold text-white mt-1">
+                Quantum 101
+            </h1>
+
+            <p class="text-slate-400 mt-3">
+                An introduction to the fundamental concepts
+                of quantum science and technology.
+            </p>
+
+        </div>
+
+
+        <!-- Back to Resources -->
+
+        <div class="mb-8">
+
+            <a
+                href="resources.html"
+                class="text-red-400 hover:text-red-300 text-sm font-medium"
+            >
+                ← Back to Resources
+            </a>
+
+        </div>
+
+
+        <!-- Quantum 101 Cards -->
+
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+
+            <!-- ================================================= -->
+            <!-- 101 A -->
+            <!-- ================================================= -->
+
+            <div class="resource-card">
+
+                <div class="p-6">
+
+                    <span class="text-red-500 text-sm font-semibold">
+                        QUANTUM 101A
+                    </span>
+
+                    <h2 class="text-xl font-bold text-white mt-2">
+
+                        From Classical Certainty
+                        to Quantum Possibility
+
+                    </h2>
+
+                    <p class="text-slate-400 mt-3">
+
+                        Quantum states, probability amplitudes,
+                        measurement, and interference.
+
+                    </p>
+
+                    <div class="mt-6">
+
+                        <a
+                            href="https://drive.google.com/file/d/16Ve_wBx1cOLxxQ2Ue_zCO1KghGk0bZBU/view?usp=share_link"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="open-button"
+                        >
+                            Open Resource
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================================================= -->
+            <!-- 101 B -->
+            <!-- ================================================= -->
+
+            <div class="resource-card">
+
+                <div class="p-6">
+
+                    <span class="text-red-500 text-sm font-semibold">
+                        QUANTUM 101B
+                    </span>
+
+                    <h2 class="text-xl font-bold text-white mt-2">
+
+                        Entanglement in Composite
+                        Quantum Systems
+
+                    </h2>
+
+                    <p class="text-slate-400 mt-3">
+
+                        States, tensor products,
+                        and nonlocal correlations.
+
+                    </p>
+
+                    <div class="mt-6">
+
+                        <a
+                            href="https://drive.google.com/file/d/1sTp0QQHl4ZVsTIRqzP5GWpFmnbKiJjfR/view?usp=share_link"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="open-button"
+                        >
+                            Open Resource
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================================================= -->
+            <!-- 101 C -->
+            <!-- ================================================= -->
+
+            <div class="resource-card">
+
+                <div class="p-6">
+
+                    <span class="text-red-500 text-sm font-semibold">
+                        QUANTUM 101C
+                    </span>
+
+                    <h2 class="text-xl font-bold text-white mt-2">
+
+                        Building and Controlling
+                        Quantum Hardware
+
+                    </h2>
+
+                    <p class="text-slate-400 mt-3">
+
+                        Qubits, gates, noise,
+                        and calibration.
+
+                    </p>
+
+                    <div class="mt-6">
+
+                        <a
+                            href="https://drive.google.com/file/d/1aJBrQUi5Gy0XeWh0gLK9Hr05Vr8bmnZw/view?usp=share_link"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="open-button"
+                        >
+                            Open Resource
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================================================= -->
+            <!-- 101 D -->
+            <!-- ================================================= -->
+
+            <div class="resource-card">
+
+                <div class="p-6">
+
+                    <span class="text-red-500 text-sm font-semibold">
+                        QUANTUM 101D
+                    </span>
+
+                    <h2 class="text-xl font-bold text-white mt-2">
+
+                        From Quantum Principles
+                        to Technologies
+
+                    </h2>
+
+                    <p class="text-slate-400 mt-3">
+
+                        Quantum principles and their
+                        technological applications.
+
+                    </p>
+
+                    <div class="mt-6">
+
+                        <a
+                            href="https://drive.google.com/file/d/1lRFKIRLRSBZf1Z-0kiLdUpaza9o25ViB/view?usp=share_link"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="open-button"
+                        >
+                            Open Resource
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+
+</body>
+
+</html>

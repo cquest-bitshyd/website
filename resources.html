@@ -14,10 +14,21 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.2s ease;
         }
-        .resource-card:hover {
-            border-color: #ef4444;
-            transform: translateY(-2px);
-        }
+     .resource-category-card {
+    display: block;
+    background-color: rgba(30, 41, 59, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.resource-category-card:hover {
+    border-color: #ef4444;
+    transform: translateY(-4px);
+    background-color: rgba(30, 41, 59, 0.9);
+}
+        
         .resource-card.active {
             border-color: #ef4444;
             background-color: rgba(30, 41, 59, 0.9);
@@ -43,46 +54,87 @@
     </header>
 
     <main class="container mx-auto px-6 py-12">
-        <div class="mb-10 text-center flex flex-col items-center">
-            <span class="text-red-500 font-semibold tracking-wider uppercase text-sm"> Learning Resources</span>
-            <h1 class="text-4xl font-extrabold text-white mt-1"> Quantum 101 </h1>
-        </div>
 
-        <!-- Topic Section: Quantum 101 -->
-        <section class="mb-12">
-            <div class="border-b border-slate-700 pb-4 mb-6 text-center">
-                <h2 class="text-2xl font-bold text-white flex items-center justify-centre gap-3">
-                    
+    <!-- Page Heading -->
+    <div class="mb-10 text-center flex flex-col items-center">
+
+        <span class="text-red-500 font-semibold tracking-wider uppercase text-sm">
+            Learning Resources
+        </span>
+
+        <h1 class="text-4xl font-extrabold text-white mt-1">
+            Explore Quantum Resources
+        </h1>
+
+        <p class="text-slate-400 text-sm mt-3">
+            Curated learning materials for understanding quantum science and technology.
+        </p>
+
+    </div>
+
+
+    <!-- Resource Categories -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+
+
+        <!-- History of Quantum -->
+        <a href="history-quantum.html"
+           class="resource-category-card">
+
+            <div class="p-8">
+
+                <span class="text-red-500 font-semibold tracking-wider uppercase text-sm">
+                    Foundation
+                </span>
+
+                <h2 class="text-2xl font-bold text-white mt-2">
+                    History of Quantum
                 </h2>
-                <p class="text-slate-400 text-sm mt-1">Essential introductory reading materials.</p>
-            </div>
 
-            <!-- Content Area: List on Left, PDF Preview on Right -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                
-                <!-- PDF List (5 Documents) -->
-                <div class="lg:col-span-4 space-y-3" id="pdf-list-container">
-                    <!-- Dynamic JavaScript Rendering -->
-                </div>
+                <p class="text-slate-400 mt-3">
+                    Explore the development of quantum theory,
+                    from its historical origins to modern quantum science.
+                </p>
 
-                <!-- Browser Native PDF Renderer Panel -->
-                <div class="lg:col-span-8 bg-slate-900 border border-slate-800 rounded-lg p-2 flex flex-col h-[750px]">
-                    <div class="flex justify-between items-center px-4 py-2 bg-slate-950 rounded mb-2">
-                        <span id="active-doc-title" class="text-sm font-semibold text-slate-300 truncate">Select a PDF to view</span>
-                        <a id="download-doc-btn" href="#" target="_blank" class="text-xs bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded transition">
-                            Open Direct
-                        </a>
-                    </div>
-                    
-                    <!-- Native Browser PDF Embedder -->
-                    <div class="flex-grow w-full bg-slate-950 rounded overflow-hidden">
-                        <iframe id="pdf-viewer" class="w-full h-full border-0" src="" title="PDF Viewer"></iframe>
-                    </div>
+                <div class="mt-6 text-red-400 font-medium">
+                    Explore →
                 </div>
 
             </div>
-        </section>
-    </main>
+
+        </a>
+
+
+        <!-- Quantum 101 -->
+        <a href="quantum101.html"
+           class="resource-category-card">
+
+            <div class="p-8">
+
+                <span class="text-red-500 font-semibold tracking-wider uppercase text-sm">
+                    Learning Series
+                </span>
+
+                <h2 class="text-2xl font-bold text-white mt-2">
+                    Quantum 101
+                </h2>
+
+                <p class="text-slate-400 mt-3">
+                    A structured introduction to quantum states,
+                    entanglement, quantum hardware, and quantum technologies.
+                </p>
+
+                <div class="mt-6 text-red-400 font-medium">
+                    Explore →
+                </div>
+
+            </div>
+
+        </a>
+
+    </section>
+
+</main>
 
     <script>
         // Metadata Pointer Store (Can also be fetched dynamically from your Google Sheet API/CSV)
