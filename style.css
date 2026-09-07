@@ -124,9 +124,14 @@ body {
     position: relative;
     overflow: hidden;
 
-    display: block;
-    width: 100%;
-    min-height: 150px;   /* Same height as the old cards */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 100px;      /* Change this to 90, 100 or 110px */
+    padding: 1.5rem;
+
+    text-align: center;
 }
 
 .faculty-card:hover {
