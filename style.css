@@ -126,7 +126,7 @@ body {
 
     display: block;
     width: 100%;
-    min-height: 300px;   /* Same height as the old cards */
+    min-height: 150px;   /* Same height as the old cards */
 }
 
 .faculty-card:hover {
