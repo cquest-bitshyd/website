@@ -393,12 +393,23 @@
                 const pastEvents = events.filter(e => parseDateTime(e.date, e.time) < now).sort((a,b) => parseDateTime(b.date, b.time) - parseDateTime(a.date, a.time));
                 const upcomingEvents = events.filter(e => parseDateTime(e.date, e.time) >= now);
 
-                if (upcomingEvents.length > 0) {
-                    featuredContainer.appendChild(createFeaturedCard(upcomingEvents[0]));
-                    upcomingEvents.slice(1).forEach(event => upcomingGrid.appendChild(createEventCard(event)));
-                } else {
-                     document.getElementById('upcoming-events-container').innerHTML += '<p class="text-slate-400">No new events scheduled at this time. Please check back later!</p>';
-                }
+if (upcomingEvents.length > 0) {
+    featuredContainer.appendChild(createFeaturedCard(upcomingEvents[0]));
+    upcomingEvents.slice(1).forEach(event =>
+        upcomingGrid.appendChild(createEventCard(event))
+    );
+} else {
+    upcomingGrid.innerHTML = `
+        <div class="col-span-full text-center py-8">
+            <p class="text-xl text-slate-300 font-medium">
+                No activities scheduled at this time.
+            </p>
+            <p class="text-slate-500 mt-2">
+                Please join us on 15th September,2026,4p.m. (IST) for the keynote address.
+            </p>
+        </div>
+    `;
+}
 
                 if (pastEvents.length > 0) {
                     pastEvents.forEach(event => pastGrid.appendChild(createEventCard(event)));
