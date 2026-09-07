@@ -118,48 +118,72 @@ body {
 
 /* --- FACULTY CARD --- */
 .faculty-card {
+.faculty-card {
     background-color: #f8fafc;
     border: 1px solid var(--border-color-light);
     transition: all 0.3s ease;
     position: relative;
-    overflow: hidden; /* Hide overflowing pseudo-element */
+    overflow: hidden;
+
+    min-height: 520px;      /* Increased card height */
 }
+
 .faculty-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
     border-color: var(--accent-color);
-    box-shadow: 0 10px 20px rgba(0,0,0, 0.05);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.08);
 }
+
 .faculty-card::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
-    width: 4px;
+    width: 5px;
     background: linear-gradient(to top, var(--accent-dark), var(--accent-color));
     transform: scaleY(0);
     transform-origin: bottom;
     transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
+
 .faculty-card:hover::before {
     transform: scaleY(1);
     transform-origin: top;
 }
+
 .faculty-img-wrapper {
     overflow: hidden;
+    height: 340px;          /* Larger image */
 }
+
 .faculty-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     transition: transform 0.4s ease, filter 0.4s ease;
     filter: grayscale(100%);
 }
+
 .faculty-card:hover .faculty-img {
     transform: scale(1.05);
     filter: grayscale(0%);
 }
+
 .faculty-info {
     border-top: 1px solid var(--border-color-light);
+    padding: 2rem;
 }
 
+.faculty-info h3 {
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.faculty-info p {
+    font-size: 1.05rem;
+    margin-top: 0.5rem;
+}
 /* --- EVENT FAB --- */
 #event-fab-container {
     position: fixed; bottom: 2rem; right: 2rem; z-index: 60;
