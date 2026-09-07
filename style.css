@@ -181,17 +181,21 @@ body {
 }
 
 .faculty-info h3 {
-    font-size: 1.05rem;
-    font-weight: 500;
+    font-size: 1.85rem;
+    font-weight: 800;
 }
 
 .faculty-info p {
-    font-size: 1.05rem;
+    font-size: 1.85rem;
     margin-top: 0.5rem;
 }
 .coordinating-card {
-    font-size: 1.05rem;
-    font-weight: 500;
+    font-size: 1.85rem;
+    font-weight: 800;
+}
+.associated-card {
+    font-size: 1.4rem;
+    font-weight: 800;
 }
 /* --- EVENT FAB --- */
 #event-fab-container {
